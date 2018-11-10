@@ -1,0 +1,112 @@
+{
+  "name": "char-encoding-detector",
+  "version": "0.0.2",
+  "homepage": "https://github.com/GlobalSport/js-chardet",
+  "description": "Character detector",
+  "keywords": [
+    "encoding",
+    "character",
+    "utf8",
+    "detector",
+    "chardet",
+    "icu"
+  ],
+  "author": "Damien Garbarino <d.garbarino@mycoachsport.com>",
+  "contributors": [
+    "Dmitry Shirokov <deadrunk@gmail.com>",
+    "@spikying",
+    "@wtgtybhertgeghgtwtg",
+    "@suisho",
+    "@seangarner",
+    "@zevanty"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@types/jest": "^23.3.2",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^23.0.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "cross-env": "^5.2.0",
+    "husky": "^1.0.0-rc.15",
+    "immer": "^1.7.2",
+    "jest": "^23.6.0",
+    "lint-staged": "^7.3.0",
+    "lodash": "^4.17.11",
+    "prettier": "^1.14.3",
+    "rollup": "^0.66.2",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-typescript2": "^0.17.0",
+    "ts-jest": "^23.0.1",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "typescript": "^2.9.0",
+    "version-bump-prompt": "^4.1.0"
+  },
+  "peerDependencies": {},
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.test.json"
+      }
+    },
+    "collectCoverage": false,
+    "coverageDirectory": "tests/reports",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/tests/",
+      "/jest",
+      "/.history/"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "ts",
+      "tsx"
+    ],
+    "testPathIgnorePatterns": [
+      "/__snapshots__/",
+      "/.history/",
+      "/node_modules/",
+      "/jest/"
+    ],
+    "testRegex": "/tests/.*/*.test.(j|t)sx?$",
+    "transform": {
+      "\\.js$": "babel-jest",
+      ".(ts|tsx)": "ts-jest"
+    }
+  },
+  "lint-staged": {
+    "src/*.{ts,tsx}": [
+      "tslint -p ./tsconfig.json -e 'tests/**' -e 'dist/**'",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:GlobalSport/js-chardet.git"
+  },
+  "scripts": {
+    "test": "jest tests",
+    "bump-version": "yarn test && yarn clean && yarn build && bump --prompt --commit --tag --push",
+    "clean": "rimraf ./dist",
+    "build": "cross-env NODE_ENV=production rollup -c rollup.config.js",
+    "tslint": "tslint -p ./tsconfig.json --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "license": "MIT"
+}
