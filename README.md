@@ -1,4 +1,4 @@
-![travis static](https://travis-ci.com/GlobalSport/char-encoding-detector.svg?branch=master)
+![travis static](https://travis-ci.com/GlobalSport/js-chardet.svg?branch=master)
 
 =====
 
