@@ -9,7 +9,11 @@ occurrence analysis to determine the most probable encoding.
 ## Installation
 
 ```
-npm i js-chardet
+npm i char-encoding-detector
+```
+
+```
+yarn add char-encoding-detector
 ```
 
 ## Usage
@@ -17,7 +21,7 @@ npm i js-chardet
 To return the encoding with the highest confidence:
 
 ```javascript
-var chardet = require('chardet');
+import chardet from 'char-encoding-detector';
 jschardet.detect(uint8Array);
 // or
 jschardet.detectFile(file).then((encoding) => {});
@@ -26,7 +30,7 @@ jschardet.detectFile(file).then((encoding) => {});
 To return the full list of possible encodings:
 
 ```javascript
-var chardet = require('chardet');
+import chardet from 'char-encoding-detector';
 chardet.detect(uint8Array, { allMatches: true });
 // or
 chardet.detectFile(file, { allMatches: true });
