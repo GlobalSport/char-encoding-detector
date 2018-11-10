@@ -1,6 +1,6 @@
 {
   "name": "char-encoding-detector",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/GlobalSport/js-chardet",
   "description": "Character detector",
   "keywords": [
@@ -45,8 +45,7 @@
     "typescript": "^2.9.0",
     "version-bump-prompt": "^4.1.0"
   },
-  "peerDependencies": {
-  },
+  "peerDependencies": {},
   "jest": {
     "globals": {
       "ts-jest": {
