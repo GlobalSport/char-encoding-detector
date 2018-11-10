@@ -1,9 +1,9 @@
-import utf8 from "./encoding/utf8";
-import * as mbcs from "./encoding/mbcs";
-import * as unicode from "./encoding/unicode";
-import * as sbcs from "./encoding/sbcs";
-import * as iso2022 from "./encoding/iso2022";
-import { Options, Recognizer } from "./type";
+import utf8 from './encoding/utf8';
+import * as mbcs from './encoding/mbcs';
+import * as unicode from './encoding/unicode';
+import * as sbcs from './encoding/sbcs';
+import * as iso2022 from './encoding/iso2022';
+import { Options, Recognizer } from './type';
 
 const recognisers: Recognizer[] = [
   new utf8(),
@@ -28,10 +28,10 @@ const recognisers: Recognizer[] = [
   new sbcs.ISO_8859_9(),
   new sbcs.windows_1251(),
   new sbcs.windows_1256(),
-  new sbcs.KOI8_R()
+  new sbcs.KOI8_R(),
 ];
 
-function readFileContentsAsUint8Array(file):Promise<Uint8Array> {
+function readFileContentsAsUint8Array(file): Promise<Uint8Array> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -51,7 +51,7 @@ function readFileContentsAsUint8Array(file):Promise<Uint8Array> {
   });
 }
 
-export function detect(buffer: Uint8Array, opts?: Options) {
+export function detectEncoding(buffer: Uint8Array, opts?: Options) {
   // Tally up the byte occurence statistics.
   var fByteStats = [];
   for (var i = 0; i < 256; i++) fByteStats[i] = 0;
@@ -72,12 +72,12 @@ export function detect(buffer: Uint8Array, opts?: Options) {
     fRawInput: buffer,
     fRawLength: buffer.length,
     fInputBytes: buffer,
-    fInputLen: buffer.length
+    fInputLen: buffer.length,
   };
 
   var matches = recognisers
-    .map(rec => rec.match(context))
-    .filter(match => !!match)
+    .map((rec) => rec.match(context))
+    .filter((match) => !!match)
     .sort((a, b) => b.confidence - a.confidence);
 
   if (opts && opts.allMatches === true) {
@@ -87,6 +87,6 @@ export function detect(buffer: Uint8Array, opts?: Options) {
   }
 }
 
-export function detectFile(file: File, opts?: Options) {
-  return readFileContentsAsUint8Array(file).then((content) => detect(content, opts));
+export function detectFileEncoding(file: File, opts?: Options) {
+  return readFileContentsAsUint8Array(file).then((content) => detectEncoding(content, opts));
 }
