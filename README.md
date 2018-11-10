@@ -21,20 +21,20 @@ yarn add char-encoding-detector
 To return the encoding with the highest confidence:
 
 ```javascript
-import { detect, detectFile } from 'char-encoding-detector';
-detect(uint8Array);
+import { detectEncoding, detectFileEncoding } from 'char-encoding-detector';
+detectEncoding(uint8Array);
 // or
-detectFile(file).then((encoding) => {});
+detectFileEncoding(file).then((encoding) => {});
 ```
 
 To return the full list of possible encodings:
 
 ```javascript
-import { detect, detectFile } from 'char-encoding-detector';
+import { detectEncoding, detectFileEncoding } from 'char-encoding-detector';
 
-detect(uint8Array, { allMatches: true });
+detectEncoding(uint8Array, { allMatches: true });
 // or
-detectFile(file, { allMatches: true });
+detectFileEncoding(file, { allMatches: true });
 ```
 
 ## Working with large data sets

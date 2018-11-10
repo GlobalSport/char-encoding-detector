@@ -1,7 +1,7 @@
 import fs from 'fs';
-import * as chardet from '../index';
+import { detectEncoding } from '../index';
 
-export const detect = (path, allMatches = false) => chardet.detect(fs.readFileSync(path), { allMatches });
+export const detect = (path, allMatches = false) => detectEncoding(fs.readFileSync(path), { allMatches });
 
 describe('chardet', function() {
   var path = __dirname + '/data/encodings/utf8';
