@@ -3,7 +3,7 @@ import * as mbcs from './encoding/mbcs';
 import * as unicode from './encoding/unicode';
 import * as sbcs from './encoding/sbcs';
 import * as iso2022 from './encoding/iso2022';
-import { Options, Recognizer } from './type';
+import { Options, Recognizer, IMatch } from './type';
 
 const recognisers: Recognizer[] = [
   new utf8(),
@@ -51,7 +51,7 @@ function readFileContentsAsUint8Array(file): Promise<Uint8Array> {
   });
 }
 
-export function detectEncoding(buffer: Uint8Array, opts?: Options) {
+export function detectEncoding(buffer: Uint8Array, opts?: Options): IMatch[] | string {
   // Tally up the byte occurence statistics.
   var fByteStats = [];
   for (var i = 0; i < 256; i++) fByteStats[i] = 0;

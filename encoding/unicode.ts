@@ -1,5 +1,4 @@
-import Match from '../match';
-import { Context, Recognizer } from '../type';
+import { Context, Recognizer, Match } from '../type';
 
 /**
  * This class matches UTF-16 and UTF-32, both big- and little-endian. The

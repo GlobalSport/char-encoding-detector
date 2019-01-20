@@ -1,5 +1,4 @@
-import Match from '../match';
-import { Recognizer } from '../type';
+import { Recognizer, Match } from '../type';
 
 /**
  * This is a superclass for the individual detectors for

@@ -1,4 +1,19 @@
-import Match from './match';
+export interface IMatch {
+  confidence: number;
+  name: string;
+  lang: string;
+}
+
+export class Match implements IMatch {
+  confidence: number;
+  name: string;
+  lang: string;
+  constructor(det, rec, confidence: number, name?: string, lang?: string) {
+    this.confidence = confidence;
+    this.name = name || rec.name(det);
+    this.lang = lang;
+  }
+}
 
 export type Context = {
   fByteStats: number[];
@@ -12,7 +27,7 @@ export type Context = {
 export interface Recognizer {
   name: (context?: Context) => string;
   language?: () => string;
-  match: (context: Context) => Match;
+  match: (context: Context) => IMatch;
 }
 
 export type Options = {

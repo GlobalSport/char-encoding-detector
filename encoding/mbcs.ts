@@ -1,5 +1,4 @@
-import Match from '../match';
-import { Recognizer, Context } from '../type';
+import { Recognizer, Context, Match } from '../type';
 
 /**
  * Binary search implementation (recursive)

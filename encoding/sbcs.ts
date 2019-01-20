@@ -1,5 +1,4 @@
-import Match from '../match';
-import { Recognizer, Context } from '../type';
+import { Recognizer, Context, Match } from '../type';
 
 const N_GRAM_MASK = 0xffffff;
 

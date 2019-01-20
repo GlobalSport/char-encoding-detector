@@ -1,12 +1,11 @@
-import Match from "../match";
-import { Recognizer, Context } from "../type";
+import { Recognizer, Context, Match } from '../type';
 
 /**
  * Charset recognizer for UTF-8
  */
 export default class utf8 implements Recognizer {
   name() {
-    return "UTF-8";
+    return 'UTF-8';
   }
 
   match(det: Context) {
@@ -17,12 +16,7 @@ export default class utf8 implements Recognizer {
       trailBytes = 0,
       confidence;
 
-    if (
-      det.fRawLength >= 3 &&
-      (input[0] & 0xff) == 0xef &&
-      (input[1] & 0xff) == 0xbb &&
-      (input[2] & 0xff) == 0xbf
-    ) {
+    if (det.fRawLength >= 3 && (input[0] & 0xff) == 0xef && (input[1] & 0xff) == 0xbb && (input[2] & 0xff) == 0xbf) {
       hasBOM = true;
     }
 
