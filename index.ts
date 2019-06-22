@@ -51,22 +51,26 @@ function readFileContentsAsUint8Array(file): Promise<Uint8Array> {
   });
 }
 
+/**
+ * Returns the most probable encoding or the list matching encoding ordered by confidence if { allMatches: true }
+ * is set in opts parameter.
+ */
 export function detectEncoding(buffer: Uint8Array, opts?: Options): IMatch[] | string {
   // Tally up the byte occurence statistics.
-  var fByteStats = [];
-  for (var i = 0; i < 256; i++) fByteStats[i] = 0;
+  let fByteStats = [];
+  for (let i = 0; i < 256; i++) fByteStats[i] = 0;
 
-  for (var i = buffer.length - 1; i >= 0; i--) fByteStats[buffer[i] & 0x00ff]++;
+  for (let i = buffer.length - 1; i >= 0; i--) fByteStats[buffer[i] & 0x00ff]++;
 
-  var fC1Bytes = false;
-  for (var i = 0x80; i <= 0x9f; i += 1) {
+  let fC1Bytes = false;
+  for (let i = 0x80; i <= 0x9f; i += 1) {
     if (fByteStats[i] != 0) {
       fC1Bytes = true;
       break;
     }
   }
 
-  var context = {
+  const context = {
     fByteStats: fByteStats,
     fC1Bytes: fC1Bytes,
     fRawInput: buffer,
@@ -75,7 +79,7 @@ export function detectEncoding(buffer: Uint8Array, opts?: Options): IMatch[] | s
     fInputLen: buffer.length,
   };
 
-  var matches = recognisers
+  const matches = recognisers
     .map((rec) => rec.match(context))
     .filter((match) => !!match)
     .sort((a, b) => b.confidence - a.confidence);
@@ -87,6 +91,39 @@ export function detectEncoding(buffer: Uint8Array, opts?: Options): IMatch[] | s
   }
 }
 
+/**
+ * Returns the character encoding with the highest confidence
+ */
+export function detectMostProbableEncoding(buffer: Uint8Array): string {
+  return detectEncoding(buffer) as string;
+}
+
+/**
+ * Returns an array of possible character encodings ordered by confidence.
+ */
+export function detectAllPossibleEncodings(buffer: Uint8Array): IMatch[] {
+  return detectEncoding(buffer, { allMatches: true }) as IMatch[];
+}
+
+/**
+ * Reads the file and returns the character encoding with the highest confidence or
+ * array of possible character encodings ordered by confidence if { allMatches: true }
+ * is set in opts parameter.
+ */
 export function detectFileEncoding(file: File, opts?: Options) {
   return readFileContentsAsUint8Array(file).then((content) => detectEncoding(content, opts));
+}
+
+/**
+ * Reads the file and returns the character encoding with the highest confidence.
+ */
+export function detectFileMostProbableEncoding(file: File) {
+  return readFileContentsAsUint8Array(file).then((content) => detectMostProbableEncoding(content));
+}
+
+/**
+ * Reads the file and returns array of possible character encodings ordered by confidence.
+ */
+export function detectFileAllPossibleEncodings(file: File) {
+  return readFileContentsAsUint8Array(file).then((content) => detectAllPossibleEncodings(content));
 }

@@ -2,7 +2,10 @@
 
 =====
 
-Port of [node-chardet](https://github.com/runk/node-chardet) in pure JavaScript without NodeJS specific code.
+Port of [node-chardet](https://github.com/runk/node-chardet) in pure JavaScript without NodeJS specific API, ie. it can be used in browser.
+
+=====
+
 Module is based on ICU project http://site.icu-project.org/, which uses character
 occurrence analysis to determine the most probable encoding.
 
@@ -21,20 +24,24 @@ yarn add char-encoding-detector
 To return the encoding with the highest confidence:
 
 ```javascript
-import { detectEncoding, detectFileEncoding } from 'char-encoding-detector';
-detectEncoding(uint8Array);
+import { detectMostProbableEncoding, detectFileMostProbableEncoding } from 'char-encoding-detector';
+const encoding = detectMostProbableEncoding(uint8Array);
+
 // or
-detectFileEncoding(file).then((encoding) => {});
+
+detectFileMostProbableEncoding(file).then((encodings) => {});
 ```
 
 To return the full list of possible encodings:
 
 ```javascript
-import { detectEncoding, detectFileEncoding } from 'char-encoding-detector';
+import { detectAllPossibleEncodings, detectFileAllPossibleEncodings } from 'char-encoding-detector';
 
-detectEncoding(uint8Array, { allMatches: true });
+const encodings = detectAllPossibleEncodings(uint8Array);
+
 // or
-detectFileEncoding(file, { allMatches: true });
+
+detectFileAllPossibleEncodings(file).then((encodings) => {});
 ```
 
 ## Working with large data sets
