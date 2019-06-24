@@ -55,6 +55,8 @@ function readFileContentsAsUint8Array(file): Promise<Uint8Array> {
  * Returns the most probable encoding or the list matching encoding ordered by confidence if { allMatches: true }
  * is set in opts parameter.
  */
+export function detectEncoding(buffer: Uint8Array): string;
+export function detectEncoding(buffer: Uint8Array, opts: Options): IMatch[];
 export function detectEncoding(buffer: Uint8Array, opts?: Options): IMatch[] | string {
   // Tally up the byte occurence statistics.
   let fByteStats = [];
@@ -92,38 +94,12 @@ export function detectEncoding(buffer: Uint8Array, opts?: Options): IMatch[] | s
 }
 
 /**
- * Returns the character encoding with the highest confidence
- */
-export function detectMostProbableEncoding(buffer: Uint8Array): string {
-  return detectEncoding(buffer) as string;
-}
-
-/**
- * Returns an array of possible character encodings ordered by confidence.
- */
-export function detectAllPossibleEncodings(buffer: Uint8Array): IMatch[] {
-  return detectEncoding(buffer, { allMatches: true }) as IMatch[];
-}
-
-/**
  * Reads the file and returns the character encoding with the highest confidence or
  * array of possible character encodings ordered by confidence if { allMatches: true }
  * is set in opts parameter.
  */
-export function detectFileEncoding(file: File, opts?: Options) {
+export function detectFileEncoding(file: File): Promise<string>;
+export function detectFileEncoding(file: File, opts: Options): Promise<IMatch[]>;
+export function detectFileEncoding(file: File, opts?: Options): Promise<string | IMatch[]> {
   return readFileContentsAsUint8Array(file).then((content) => detectEncoding(content, opts));
-}
-
-/**
- * Reads the file and returns the character encoding with the highest confidence.
- */
-export function detectFileMostProbableEncoding(file: File) {
-  return readFileContentsAsUint8Array(file).then((content) => detectMostProbableEncoding(content));
-}
-
-/**
- * Reads the file and returns array of possible character encodings ordered by confidence.
- */
-export function detectFileAllPossibleEncodings(file: File) {
-  return readFileContentsAsUint8Array(file).then((content) => detectAllPossibleEncodings(content));
 }
