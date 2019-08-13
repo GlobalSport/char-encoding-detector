@@ -38,9 +38,6 @@
     "rollup-plugin-commonjs": "^9.1.8",
     "rollup-plugin-typescript2": "^0.17.0",
     "ts-jest": "^24.0.1",
-    "tslint": "^5.11.0",
-    "tslint-config-airbnb": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0",
     "typescript": "^2.9.0",
     "version-bump-prompt": "^4.1.0"
   },
@@ -79,7 +76,6 @@
   },
   "lint-staged": {
     "src/*.{ts,tsx}": [
-      "tslint -p ./tsconfig.json -e 'tests/**' -e 'dist/**'",
       "prettier --write",
       "git add"
     ]
@@ -92,8 +88,7 @@
     "test": "jest tests",
     "bump-version": "yarn test && yarn clean && yarn build && bump --prompt --commit --tag --push",
     "clean": "rimraf ./dist",
-    "build": "cross-env NODE_ENV=production rollup -c rollup.config.js",
-    "tslint": "tslint -p ./tsconfig.json --fix"
+    "build": "cross-env NODE_ENV=production rollup -c rollup.config.js"
   },
   "husky": {
     "hooks": {
